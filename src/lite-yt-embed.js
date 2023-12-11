@@ -30,6 +30,12 @@ class LiteYTEmbed extends HTMLElement {
           this.upgradePosterImage();
         }
 
+        /* If playBtnEl isn't a button (for instance, it's a link for progressive enhancement reasons)
+           then we want to give it a button role before we take away its href */
+        if (playBtnEl && playBtnEl.tagName !== 'BUTTON') {
+            playBtnEl.setAttribute('role', 'button');
+        }
+
         // Set up play button, and its visually hidden label
         if (!playBtnEl) {
             playBtnEl = document.createElement('button');
@@ -37,6 +43,7 @@ class LiteYTEmbed extends HTMLElement {
             playBtnEl.classList.add('lty-playbtn');
             this.append(playBtnEl);
         }
+
         if (!playBtnEl.textContent) {
             const playBtnLabelEl = document.createElement('span');
             playBtnLabelEl.className = 'lyt-visually-hidden';
